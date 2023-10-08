@@ -1,13 +1,25 @@
 package kata2;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
         VideogameLoader loader = new CsvFileVideogameLoader(new File("vgsales.csv"));
         List<Videogame> videogames = loader.load();
-        System.out.println(videogames.get(0));
+        Map<String, Integer> chart = new HashMap<>();
+        for (Videogame videogame: videogames) {
+            if(chart.containsKey(videogame.getPlatform())) {
+                chart.put(videogame.getPlatform(), chart.get(videogame.getPlatform()) + 1);
+            }
+            else {
+                chart.put(videogame.getPlatform(), 1);
+            }
+        }
+        for (String key : chart.keySet()) {
+            System.out.println(key + ": " + chart.get(key));
+        }
     }
 }
