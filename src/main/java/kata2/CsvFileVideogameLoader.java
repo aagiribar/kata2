@@ -26,10 +26,11 @@ public class CsvFileVideogameLoader implements VideogameLoader{
                 videogames.add(toVideogame(line));
             }
         } catch (IOException e) {}
+        return videogames;
     }
 
     private Videogame toVideogame(String line) {
-        return toVideogame(line.split(","));
+        return toVideogame(line.split(",(?=\\S)"));
     }
 
     private Videogame toVideogame(String[] fields) {
